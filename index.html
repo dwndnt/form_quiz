@@ -1,118 +1,133 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Timed Google Form</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f4f4f4;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timed Google Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
 
-    #container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background-color: white;
-      padding: 20px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      width: 80%;
-      position: relative; /* Added position relative */
-    }
+        #container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            position: relative;
+            /* Added position relative */
+        }
 
-    #timer {
-      font-size: 2em;
-      margin-bottom: 20px;
-    }
+        #timer {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
 
-    #googleForm {
-      width: 100%;
-      height: 60vh;
-      border: none;
-    }
+        #googleForm {
+            width: 100%;
+            height: 60vh;
+            border: none;
+        }
 
-    #overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 360px;
-      background: rgba(0, 0, 0, 0.735);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: rgb(255, 252, 252);
-      font-style: bold;
-      font-size: 24px;
-      display: none; /* Initially hidden */
-    }
+        #overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.735);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: rgb(255, 252, 252);
+            font-style: bold;
+            font-size: 24px;
+            display: none;
+            /* Initially hidden */
+        }
 
-    @media screen and (max-width: 600px) {
-      #container {
-        width: 90%;
-      }
-    }
-  </style>
+        @media screen and (max-width: 600px) {
+            #container {
+                width: 90%;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-<div id="container">
-  <div id="timer"></div>
+    <div id="container">
+        <div id="timer"></div>
 
-  <!-- Overlay to cover the form when time is up -->
-  <div id="overlay">
-    <p>WAKTU HABIS! SILAHKAN KIRIM JAWABAN ANDA.</p>
-  </div>
+        <!-- Overlay to cover the form when time is up -->
+        <div id="overlay">
+            <p>WAKTU HABIS! SILAHKAN KIRIM JAWABAN ANDA.</p>
+        </div>
 
-  <!-- Add an iframe to embed a Google Form -->
-  <iframe id="googleForm" src="https://docs.google.com/forms/d/e/1FAIpQLSfi5XqSIeEH7Z-yzjt9JBFgop_tBca8j71isE3PLOlSWqQxBA/viewform" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
-</div>
+        <!-- Add an iframe to embed a Google Form -->
+        <iframe id="googleForm" src="https://docs.google.com/forms/d/e/1FAIpQLSdSAqAL0i_Tm_FbrZCgpv7TBm9goxNb363ELwg58tIpbjRCIQ/viewform" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+        
+        <!-- Add a div to be hidden when the timer expires -->
+        <div class="Qr7Oae" role="listitem">
+            <!-- Your content here -->
+        </div>
+    </div>
 
-<script>
-  const timerDuration = 5; // setting waktu dalam detik (5= 5 detik, 60=1 menit, 120=2menit, dst..)
-  let timeInSeconds;
-
-  // Check if there is a remaining time in localStorage
-  const savedTime = localStorage.getItem('remainingTime');
-  if (savedTime) {
-    timeInSeconds = parseInt(savedTime, 10);
-  } else {
-    timeInSeconds = timerDuration; // Set initial time
-  }
-
-  const endTime = new Date(new Date().getTime() + timeInSeconds * 1000);
-  let timerInterval = setInterval(updateTimer, 1000);
-
-  function updateTimer() {
-    document.getElementById('timer').innerHTML = formatTime(timeInSeconds);
-    timeInSeconds--;
-
-    // Save the remaining time to localStorage
-    localStorage.setItem('remainingTime', timeInSeconds.toString());
-
-    if (timeInSeconds < 0) {
-      clearInterval(timerInterval);
-      document.getElementById('timer').innerHTML = 'WAKTU HABIS!';
-      document.getElementById('overlay').style.display = 'flex'; // Show overlay
-      // Clear the remaining time from localStorage
-      localStorage.removeItem('remainingTime');
-    }
-  }
-
-  function formatTime(seconds) {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
-  }
-</script>
+    <script>
+      const timerDuration = 5; // setting waktu dalam detik (5= 5 detik, 60=1 menit, 120=2menit, dst..)
+      let timeInSeconds;
+    
+      // Check if there is a remaining time in localStorage
+      const savedTime = localStorage.getItem('remainingTime');
+      if (savedTime) {
+        timeInSeconds = parseInt(savedTime, 10);
+      } else {
+        timeInSeconds = timerDuration; // Set initial time
+      }
+    
+      const endTime = new Date(new Date().getTime() + timeInSeconds * 1000);
+      let timerInterval = setInterval(updateTimer, 1000);
+    
+      function updateTimer() {
+        document.getElementById('timer').innerHTML = formatTime(timeInSeconds);
+        timeInSeconds--;
+    
+        // Save the remaining time to localStorage
+        localStorage.setItem('remainingTime', timeInSeconds.toString());
+    
+        if (timeInSeconds < 0) {
+          clearInterval(timerInterval);
+          document.getElementById('timer').innerHTML = 'WAKTU HABIS!';
+          
+          // Show overlay
+          document.getElementById('overlay').style.display = 'flex';
+          
+          // Hide specific div with class "Qr7Oae"
+          document.querySelector('.Qr7Oae').style.display = 'none';
+    
+          // Clear the remaining time from localStorage
+          localStorage.removeItem('remainingTime');
+        }
+      }
+    
+      function formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+      }
+    </script>
 
 </body>
+
 </html>
