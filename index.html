@@ -77,7 +77,7 @@ function startTimer(duration, interval, tolerance, display) {
           document.getElementById("form").style.visibility = "visible";
           display.textContent = "Tersisa " + minutes + ":" + seconds + " Menit";
         } else {
-          display.textContent = "Dibuka " + delayMinutes + ":" + delaySeconds + " Menit lagi";
+          display.textContent = "Soal dibuka " + delayMinutes + ":" + delaySeconds + " Menit lagi";
         }
 
         if (--timer < 0) {
@@ -87,7 +87,7 @@ function startTimer(duration, interval, tolerance, display) {
     if (--batas < 0) {
 
            document.getElementById("form").style.visibility = "hidden";
-           display.textContent = "Akses tidak diberikan";
+           display.textContent = "TIMES UP! TERIMAKASIH.";
         }
 
     }, 1000);
@@ -102,7 +102,7 @@ function addMinutes(date, minutes) {
 window.onload = function () {
     var interval = 1;
     var tolerance = 1;
-    var startDate = '2023-11-13T17:25:00.000';
+    var startDate = '2023-11-13T19:00:00.000';
     document.getElementById("form").style.visibility = "hidden";
     var display = document.querySelector('#time');
     var initDate = new Date(startDate);
