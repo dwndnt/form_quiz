@@ -87,44 +87,47 @@
     <script>
       const timerDuration = 5; // setting waktu dalam detik (5= 5 detik, 60=1 menit, 120=2menit, dst..)
       let timeInSeconds;
-    
-      // Check if there is a remaining time in localStorage
-      const savedTime = localStorage.getItem('remainingTime');
-      if (savedTime) {
-        timeInSeconds = parseInt(savedTime, 10);
-      } else {
-        timeInSeconds = timerDuration; // Set initial time
-      }
-    
-      const endTime = new Date(new Date().getTime() + timeInSeconds * 1000);
-      let timerInterval = setInterval(updateTimer, 1000);
-    
-      function updateTimer() {
-        document.getElementById('timer').innerHTML = formatTime(timeInSeconds);
-        timeInSeconds--;
-    
-        // Save the remaining time to localStorage
-        localStorage.setItem('remainingTime', timeInSeconds.toString());
-    
-        if (timeInSeconds < 0) {
-          clearInterval(timerInterval);
-          document.getElementById('timer').innerHTML = 'WAKTU HABIS!';
-          
-          // Show overlay
-          document.getElementById('overlay').style.display = 'flex';
-          
-          // Hide specific div with class "Qr7Oae"
-          document.querySelector('.Qr7Oae').style.display = 'none';
-    
-          // Clear the remaining time from localStorage
-          localStorage.removeItem('remainingTime');
+  
+      function startTimer() {
+        // Check if there is a remaining time in localStorage
+        const savedTime = localStorage.getItem('remainingTime');
+        if (savedTime) {
+          timeInSeconds = parseInt(savedTime, 10);
+        } else {
+          timeInSeconds = timerDuration; // Set initial time
         }
-      }
-    
-      function formatTime(seconds) {
-        const minutes = Math.floor(seconds / 60);
-        const remainingSeconds = seconds % 60;
-        return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+  
+        const endTime = new Date(new Date().getTime() + timeInSeconds * 1000);
+  
+        let timerInterval = setInterval(updateTimer, 1000);
+  
+        function updateTimer() {
+          document.getElementById('timer').innerHTML = formatTime(timeInSeconds);
+          timeInSeconds--;
+  
+          // Save the remaining time to localStorage
+          localStorage.setItem('remainingTime', timeInSeconds.toString());
+  
+          if (timeInSeconds < 0) {
+            clearInterval(timerInterval);
+            document.getElementById('timer').innerHTML = 'WAKTU HABIS!';
+  
+            // Show overlay
+            document.getElementById('overlay').style.display = 'flex';
+  
+            // Hide specific div with class "Qr7Oae"
+            document.querySelector('.Qr7Oae').style.display = 'none';
+  
+            // Clear the remaining time from localStorage
+            localStorage.removeItem('remainingTime');
+          }
+        }
+  
+        function formatTime(seconds) {
+          const minutes = Math.floor(seconds / 60);
+          const remainingSeconds = seconds % 60;
+          return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+        }
       }
     </script>
 
