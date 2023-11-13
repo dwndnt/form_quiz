@@ -4,13 +4,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <style type="text/css">
+  <script class="jsbin" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+  <title>Your Page Title</title>
+  <style type="text/css" media="screen">
     body {
       overflow: visible;
       margin: 0;
       padding: 0;
-      font-size: 16px; /* Anda dapat menyesuaikan ukuran font dasar */
+      font-size: 16px;
     }
 
     #timer {
@@ -25,7 +26,7 @@
 
     iframe {
       max-width: 100%;
-      height: auto;
+      height: 800px;
       width: 100%;
       border: 0;
       padding-top: 8px;
@@ -36,14 +37,41 @@
       padding: 10px;
     }
 
+    #popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+  z-index: 1000;
+}
+
+#popup-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #000;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  z-index: 1001; /* Ensure the content is above the background */
+}
+    #popup-time {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
     @media screen and (max-width: 600px) {
       #timer {
-        padding: 5px 15px; /* Sesuaikan padding untuk layar yang lebih kecil */
+        padding: 5px 15px;
         margin: 20px;
       }
 
       body {
-        font-size: 14px; /* Sesuaikan ukuran font untuk layar yang lebih kecil */
+        font-size: 14px;
       }
     }
   </style>
@@ -55,13 +83,23 @@
     <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdSAqAL0i_Tm_FbrZCgpv7TBm9goxNb363ELwg58tIpbjRCIQ/viewform">Mohon Menunggu</iframe><br />
   </span>
 
-<script>
+  <div id="popup">
+    <div id="popup-content">
+      <p>Halaman ini dibekukan karena anda terdeteksi melakukan kecurangan.<br>Popup akan muncul selama:</p>
+      <p id="popup-time"></p>
+    </div>
+  </div>
+  
 
-function startTimer(duration, interval, tolerance, display) {
-    var timer = duration, minutes, seconds, delayMinutes, delaySeconds;
-    var batas = timer + tolerance * 60;
-    interval = 60 * interval;
-    setInterval(function () {
+  <script>
+    var timerInterval; // Declare timerInterval globally
+
+    function startTimer(duration, interval, tolerance, display) {
+      var timer = duration, minutes, seconds, delayMinutes, delaySeconds;
+      var batas = timer + tolerance * 60;
+      interval = 60 * interval;
+
+      timerInterval = setInterval(function () {
         delayMinutes = parseInt((timer - interval) / 60, 10);
         delaySeconds = parseInt((timer - interval) % 60, 10);
         minutes = parseInt(timer / 60, 10);
@@ -81,62 +119,79 @@ function startTimer(duration, interval, tolerance, display) {
         }
 
         if (--timer < 0) {
-
-           display.textContent = tolerance + " Menit Toleransi, SILAHKAN TEKAN TOMBOL SUBMIT!";
+          display.textContent = tolerance + " Menit Toleransi, SILAHKAN TEKAN TOMBOL SUBMIT!";
         }
-    if (--batas < 0) {
-
-           document.getElementById("form").style.visibility = "hidden";
-           display.textContent = "TIMES UP! TERIMAKASIH.";
+        if (--batas < 0) {
+          document.getElementById("form").style.visibility = "hidden";
+          display.textContent = "TIMES UP! TERIMAKASIH.";
         }
 
-    }, 1000);
+      }, 1000);
+    }
+
+    function addMinutes(date, minutes) {
+      date.setMinutes(date.getMinutes() + minutes);
+      return date;
+    }
+
+    function showPopup() {
+      var popup = document.getElementById("popup");
+      popup.style.display = "block";
+
+      var popupTimer = 5 * 60; // Waktu popup muncul dalam detik (5 menit)
+      var popupDisplay = document.querySelector('#popup-time');
+
+      setInterval(function () {
+        var minutes = parseInt(popupTimer / 60, 10);
+        var seconds = parseInt(popupTimer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        popupDisplay.textContent = minutes + ":" + seconds + " Menit";
+
+        if (--popupTimer < 0) {
+          popup.style.display = "none";
+        }
+      }, 1000);
+    }
+
+    function handleVisibilityChange() {
+  if (document.hidden) {
+    showPopup();
+    resetTimer();
+  }
 }
 
-function addMinutes(date, minutes) {
-  date.setMinutes(date.getMinutes() + minutes);
-
-  return date;
+function resetTimer() {
+  clearInterval(timerInterval); // Hentikan interval sebelumnya, jika ada
+  var interval = 1;
+  var tolerance = 1;
+  var startDate = '2023-11-18T09:00:00.000';
+  document.getElementById("form").style.visibility = "hidden";
+  var display = document.querySelector('#time');
+  var initDate = new Date(startDate);
+  var countDownDate = addMinutes(initDate, interval);
+  var nowDate = new Date();
+  var duration = (countDownDate.getTime() - nowDate.getTime()) / 1000;
+  startTimer(duration, interval, tolerance, display);
 }
+
+
 
 window.onload = function () {
-    var interval = 1;
-    var tolerance = 1;
-    var startDate = '2023-11-13T19:00:00.000';
-    document.getElementById("form").style.visibility = "hidden";
-    var display = document.querySelector('#time');
-    var initDate = new Date(startDate);
-    var countDownDate = addMinutes(initDate, interval);
-    var nowDate = new Date();
-    var duration = (countDownDate.getTime() - nowDate.getTime())/1000;
-    startTimer(duration, interval, tolerance, display);
+  resetTimer(); // Initialize the timer on page load
+  document.addEventListener("visibilitychange", handleVisibilityChange, false);
+
+  setInterval(function () {
+    var isActive = document.hasFocus();
+    if (!isActive) {
+      showPopup();
+    }
+  }, 7000);
 };
 
-</script>
+  </script>
+</body>
 
-<style type="text/css">
-  
-body {
-    overflow: visible;
-}
-
-iframe {
-
-height: 600px;
-width: 100%;
-border: 0px;
-padding-top: 8px;
-margin: 0px
-}
-
-#timer {
-background-color: #000000;
-color: #FFFFFF;
-font-family: arial;
-font-weight: bold;
-margin: 20px;
-padding: 10px 30px;
-border-radius: 100px;
-}
-
-</style>
+</html>
