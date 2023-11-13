@@ -168,22 +168,32 @@
       }
     }
 
-    function resetTimer() {
-      clearInterval(timerInterval);
-      var timerIntervalValue = 5;
-      var tolerance = 1;
-      var startDate = '2023-11-13T22:38:00.000';
-      document.getElementById("form").style.visibility = "hidden";
-      var display = document.querySelector('#time');
-      var initDate = new Date(startDate);
-      var countDownDate = addMinutes(initDate, timerIntervalValue);
-      var nowDate = new Date();
-      var duration = (countDownDate.getTime() - nowDate.getTime()) / 1000;
-      timerInterval = startTimer(duration, timerIntervalValue, tolerance, display);
-    }
+  function resetTimer() {
+  clearInterval(timerInterval);
+  var timerIntervalValue = 10;
+  var tolerance = 1;
+  var startDate = '2023-11-14T22:09:00.000';
+  var display = document.querySelector('#time');
+  var initDate = new Date(startDate);
+  var countDownDate = addMinutes(initDate, timerIntervalValue);
+  var nowDate = new Date();
+  var duration = (countDownDate.getTime() - nowDate.getTime()) / 1000;
+
+  // Jika waktu sudah habis, langsung sembunyikan form
+  if (duration <= 0) {
+    document.getElementById("form").style.visibility = "hidden";
+    display.textContent = "TIMES UP! TERIMAKASIH.";
+    return;
+  }
+
+  // Jika waktu belum habis, set timer dan tampilkan form
+  timerInterval = startTimer(duration, timerIntervalValue, tolerance, display);
+  document.getElementById("form").style.visibility = "hidden";
+}
+
 
     // Menambahkan variabel initialPopupTimer dan timerInterval secara lokal
-    var initialPopupTimer = 5 * 60;
+    var initialPopupTimer = 2 * 60;
     var timerInterval;
 
     window.onload = function () {
