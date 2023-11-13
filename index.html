@@ -2,135 +2,141 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Timed Google Form</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style type="text/css">
+    body {
+      overflow: visible;
+      margin: 0;
+      padding: 0;
+      font-size: 16px; /* Anda dapat menyesuaikan ukuran font dasar */
+    }
 
-        #container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: white;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 80%;
-            position: relative;
-            /* Added position relative */
-        }
+    #timer {
+      background-color: #000000;
+      color: #FFFFFF;
+      font-family: arial;
+      font-weight: bold;
+      padding: 10px 30px;
+      margin: 20px;
+      border-radius: 100px;
+    }
 
-        #timer {
-            font-size: 2em;
-            margin-bottom: 20px;
-        }
+    iframe {
+      max-width: 100%;
+      height: auto;
+      width: 100%;
+      border: 0;
+      padding-top: 8px;
+      margin: 0;
+    }
 
-        #googleForm {
-            width: 100%;
-            height: 60vh;
-            border: none;
-        }
+    #form {
+      padding: 10px;
+    }
 
-        #overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.735);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: rgb(255, 252, 252);
-            font-style: bold;
-            font-size: 24px;
-            display: none;
-            /* Initially hidden */
-        }
+    @media screen and (max-width: 600px) {
+      #timer {
+        padding: 5px 15px; /* Sesuaikan padding untuk layar yang lebih kecil */
+        margin: 20px;
+      }
 
-        @media screen and (max-width: 600px) {
-            #container {
-                width: 90%;
-            }
-        }
-    </style>
+      body {
+        font-size: 14px; /* Sesuaikan ukuran font untuk layar yang lebih kecil */
+      }
+    }
+  </style>
 </head>
 
 <body>
+  <div id="timer" align="center"><a class="fa fa-clock-o"></a> <span id="time"></span></div>
+  <span id="form">
+    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdSAqAL0i_Tm_FbrZCgpv7TBm9goxNb363ELwg58tIpbjRCIQ/viewform">Mohon Menunggu</iframe><br />
+  </span>
 
-    <div id="container">
-        <div id="timer"></div>
+<script>
 
-        <!-- Overlay to cover the form when time is up -->
-        <div id="overlay">
-            <p>WAKTU HABIS! SILAHKAN KIRIM JAWABAN ANDA.</p>
-        </div>
+function startTimer(duration, interval, tolerance, display) {
+    var timer = duration, minutes, seconds, delayMinutes, delaySeconds;
+    var batas = timer + tolerance * 60;
+    interval = 60 * interval;
+    setInterval(function () {
+        delayMinutes = parseInt((timer - interval) / 60, 10);
+        delaySeconds = parseInt((timer - interval) % 60, 10);
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
 
-        <!-- Add an iframe to embed a Google Form -->
-        <iframe id="googleForm" src="https://docs.google.com/forms/d/e/1FAIpQLSdSAqAL0i_Tm_FbrZCgpv7TBm9goxNb363ELwg58tIpbjRCIQ/viewform" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
-        
-        <!-- Add a div to be hidden when the timer expires -->
-        <div class="Qr7Oae" role="listitem">
-            <!-- Your content here -->
-        </div>
-    </div>
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
 
-    <script>
-      const timerDuration = 5; // setting waktu dalam detik (5= 5 detik, 60=1 menit, 120=2menit, dst..)
-      let timeInSeconds;
-  
-      function startTimer() {
-        // Check if there is a remaining time in localStorage
-        const savedTime = localStorage.getItem('remainingTime');
-        if (savedTime) {
-          timeInSeconds = parseInt(savedTime, 10);
+        delayMinutes = delayMinutes < 10 ? "0" + delayMinutes : delayMinutes;
+        delaySeconds = delaySeconds < 10 ? "0" + delaySeconds : delaySeconds;
+
+        if (timer <= interval) {
+          document.getElementById("form").style.visibility = "visible";
+          display.textContent = "Tersisa " + minutes + ":" + seconds + " Menit";
         } else {
-          timeInSeconds = timerDuration; // Set initial time
+          display.textContent = "Dibuka " + delayMinutes + ":" + delaySeconds + " Menit lagi";
         }
-  
-        const endTime = new Date(new Date().getTime() + timeInSeconds * 1000);
-  
-        let timerInterval = setInterval(updateTimer, 1000);
-  
-        function updateTimer() {
-          document.getElementById('timer').innerHTML = formatTime(timeInSeconds);
-          timeInSeconds--;
-  
-          // Save the remaining time to localStorage
-          localStorage.setItem('remainingTime', timeInSeconds.toString());
-  
-          if (timeInSeconds < 0) {
-            clearInterval(timerInterval);
-            document.getElementById('timer').innerHTML = 'WAKTU HABIS!';
-  
-            // Show overlay
-            document.getElementById('overlay').style.display = 'flex';
-  
-            // Hide specific div with class "Qr7Oae"
-            document.querySelector('.Qr7Oae').style.display = 'none';
-  
-            // Clear the remaining time from localStorage
-            localStorage.removeItem('remainingTime');
-          }
-        }
-  
-        function formatTime(seconds) {
-          const minutes = Math.floor(seconds / 60);
-          const remainingSeconds = seconds % 60;
-          return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
-        }
-      }
-    </script>
 
-</body>
+        if (--timer < 0) {
 
-</html>
+           display.textContent = tolerance + " Menit Toleransi, SILAHKAN TEKAN TOMBOL SUBMIT!";
+        }
+    if (--batas < 0) {
+
+           document.getElementById("form").style.visibility = "hidden";
+           display.textContent = "Akses tidak diberikan";
+        }
+
+    }, 1000);
+}
+
+function addMinutes(date, minutes) {
+  date.setMinutes(date.getMinutes() + minutes);
+
+  return date;
+}
+
+window.onload = function () {
+    var interval = 1;
+    var tolerance = 1;
+    var startDate = '2023-11-13T17:07:00.000';
+    document.getElementById("form").style.visibility = "hidden";
+    var display = document.querySelector('#time');
+    var initDate = new Date(startDate);
+    var countDownDate = addMinutes(initDate, interval);
+    var nowDate = new Date();
+    var duration = (countDownDate.getTime() - nowDate.getTime())/1000;
+    startTimer(duration, interval, tolerance, display);
+};
+
+</script>
+
+<style type="text/css">
+  
+body {
+    overflow: visible;
+}
+
+iframe {
+
+height: 600px;
+width: 100%;
+border: 0px;
+padding-top: 8px;
+margin: 0px
+}
+
+#timer {
+background-color: #000000;
+color: #FFFFFF;
+font-family: arial;
+font-weight: bold;
+margin: 20px;
+padding: 10px 30px;
+border-radius: 100px;
+}
+
+</style>
