@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script class="jsbin" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+  <script class="jsbin" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <title>Your Page Title</title>
   <style type="text/css" media="screen">
     body {
@@ -38,27 +38,30 @@
     }
 
     #popup {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
-  z-index: 1000;
-}
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      /* Semi-transparent background */
+      z-index: 1000;
+    }
 
-#popup-content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 20px;
-  background-color: #fff;
-  border: 1px solid #000;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-  z-index: 1001; /* Ensure the content is above the background */
-}
+    #popup-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px;
+      background-color: #fff;
+      border: 1px solid #000;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+      z-index: 1001;
+      /* Ensure the content is above the background */
+    }
+
     #popup-time {
       font-size: 18px;
       font-weight: bold;
@@ -89,29 +92,26 @@
       <p id="popup-time"></p>
     </div>
   </div>
-  
 
   <script>
-    var timerInterval; // Declare timerInterval globally
-
-    function startTimer(duration, interval, tolerance, display) {
-      var timer = duration, minutes, seconds, delayMinutes, delaySeconds;
+    function startTimer(duration, timerInterval, tolerance, display) {
+      var timer = duration;
+      var timerIntervalId;
       var batas = timer + tolerance * 60;
-      interval = 60 * interval;
+      timerInterval = 60 * timerInterval;
 
-      timerInterval = setInterval(function () {
-        delayMinutes = parseInt((timer - interval) / 60, 10);
-        delaySeconds = parseInt((timer - interval) % 60, 10);
-        minutes = parseInt(timer / 60, 10);
-        seconds = parseInt(timer % 60, 10);
+      timerIntervalId = setInterval(function () {
+        var delayMinutes = parseInt((timer - timerInterval) / 60, 10);
+        var delaySeconds = parseInt((timer - timerInterval) % 60, 10);
+        var minutes = parseInt(timer / 60, 10);
+        var seconds = parseInt(timer % 60, 10);
 
         minutes = minutes < 10 ? "0" + minutes : minutes;
         seconds = seconds < 10 ? "0" + seconds : seconds;
-
         delayMinutes = delayMinutes < 10 ? "0" + delayMinutes : delayMinutes;
         delaySeconds = delaySeconds < 10 ? "0" + delaySeconds : delaySeconds;
 
-        if (timer <= interval) {
+        if (timer <= timerInterval) {
           document.getElementById("form").style.visibility = "visible";
           display.textContent = "Tersisa " + minutes + ":" + seconds + " Menit";
         } else {
@@ -127,6 +127,8 @@
         }
 
       }, 1000);
+
+      return timerIntervalId;
     }
 
     function addMinutes(date, minutes) {
@@ -134,63 +136,67 @@
       return date;
     }
 
-    function showPopup() {
+    function showPopup(popupTimerValue) {
       var popup = document.getElementById("popup");
       popup.style.display = "block";
 
-      var popupTimer = 5 * 60; // Waktu popup muncul dalam detik (5 menit)
       var popupDisplay = document.querySelector('#popup-time');
-
-      setInterval(function () {
-        var minutes = parseInt(popupTimer / 60, 10);
-        var seconds = parseInt(popupTimer % 60, 10);
+      var intervalId = setInterval(function () {
+        var minutes = parseInt(popupTimerValue / 60, 10);
+        var seconds = parseInt(popupTimerValue % 60, 10);
 
         minutes = minutes < 10 ? "0" + minutes : minutes;
         seconds = seconds < 10 ? "0" + seconds : seconds;
 
         popupDisplay.textContent = minutes + ":" + seconds + " Menit";
 
-        if (--popupTimer < 0) {
+        if (--popupTimerValue < 0) {
           popup.style.display = "none";
+          clearInterval(intervalId);
         }
       }, 1000);
     }
 
     function handleVisibilityChange() {
-  if (document.hidden) {
-    showPopup();
-    resetTimer();
-  }
-}
-
-function resetTimer() {
-  clearInterval(timerInterval); // Hentikan interval sebelumnya, jika ada
-  var interval = 1;
-  var tolerance = 1;
-  var startDate = '2023-11-18T09:00:00.000';
-  document.getElementById("form").style.visibility = "hidden";
-  var display = document.querySelector('#time');
-  var initDate = new Date(startDate);
-  var countDownDate = addMinutes(initDate, interval);
-  var nowDate = new Date();
-  var duration = (countDownDate.getTime() - nowDate.getTime()) / 1000;
-  startTimer(duration, interval, tolerance, display);
-}
-
-
-
-window.onload = function () {
-  resetTimer(); // Initialize the timer on page load
-  document.addEventListener("visibilitychange", handleVisibilityChange, false);
-
-  setInterval(function () {
-    var isActive = document.hasFocus();
-    if (!isActive) {
-      showPopup();
+      if (document.visibilityState === "hidden") {
+        // Pengguna pindah ke tab lain atau aplikasi lain
+        showPopup(initialPopupTimer); // Gunakan initialPopupTimer untuk reset
+        resetTimer();
+      } else {
+        // Pengguna kembali ke tab saat ini
+        console.log("Pengguna kembali ke halaman");
+      }
     }
-  }, 7000);
-};
 
+    function resetTimer() {
+      clearInterval(timerInterval);
+      var timerIntervalValue = 5;
+      var tolerance = 1;
+      var startDate = '2023-11-13T22:38:00.000';
+      document.getElementById("form").style.visibility = "hidden";
+      var display = document.querySelector('#time');
+      var initDate = new Date(startDate);
+      var countDownDate = addMinutes(initDate, timerIntervalValue);
+      var nowDate = new Date();
+      var duration = (countDownDate.getTime() - nowDate.getTime()) / 1000;
+      timerInterval = startTimer(duration, timerIntervalValue, tolerance, display);
+    }
+
+    // Menambahkan variabel initialPopupTimer dan timerInterval secara lokal
+    var initialPopupTimer = 5 * 60;
+    var timerInterval;
+
+    window.onload = function () {
+      resetTimer();
+      document.addEventListener("visibilitychange", handleVisibilityChange, false);
+
+      setInterval(function () {
+        var isActive = document.hasFocus();
+        if (!isActive) {
+          showPopup(initialPopupTimer);
+        }
+      }, 7000);
+    };
   </script>
 </body>
 
