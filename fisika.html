@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script class="jsbin" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <title>CERDIG SCIENCE COMPETITION</title>
+  <style type="text/css" media="screen">
+    body {
+      overflow: visible;
+      margin: 0;
+      padding: 0;
+      font-size: 16px;
+    }
+
+    #timer {
+      background-color: #000000;
+      color: #FFFFFF;
+      font-family: arial;
+      font-weight: bold;
+      padding: 10px 30px;
+      margin: 20px;
+      border-radius: 100px;
+    }
+
+    iframe {
+      max-width: 100%;
+      height: 800px;
+      width: 100%;
+      border: 0;
+      padding-top: 8px;
+      margin: 0;
+    }
+
+    #form {
+      padding: 10px;
+    }
+
+    #popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      /* Semi-transparent background */
+      z-index: 1000;
+    }
+
+    #popup-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px;
+      background-color: #fff;
+      border: 1px solid #000;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+      z-index: 1001;
+      /* Ensure the content is above the background */
+    }
+
+    #popup-time {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    @media screen and (max-width: 600px) {
+      #timer {
+        padding: 5px 15px;
+        margin: 20px;
+      }
+
+      body {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="timer" align="center"><a class="fa fa-clock-o"></a> <span id="time"></span></div>
+  <span id="form">
+    <iframe
+      src="https://docs.google.com/forms/d/e/1FAIpQLSdSAqAL0i_Tm_FbrZCgpv7TBm9goxNb363ELwg58tIpbjRCIQ/viewform">Mohon
+      Menunggu</iframe><br />
+  </span>
+
+  <div id="popup">
+    <div id="popup-content">
+      <p>Halaman ini dibekukan karena anda terdeteksi melakukan kecurangan.<br>Popup akan muncul selama:</p>
+      <p id="popup-time"></p>
+    </div>
+  </div>
+
+  <script>
+    function startTimer(duration, timerInterval, tolerance, display) {
+      var timer = duration;
+      var timerIntervalId;
+      var batas = timer + tolerance * 60;
+      timerInterval = 60 * timerInterval;
+
+      timerIntervalId = setInterval(function () {
+        var delayMinutes = parseInt((timer - timerInterval) / 60, 10);
+        var delaySeconds = parseInt((timer - timerInterval) % 60, 10);
+        var formattedTime = formatTime(delayMinutes, delaySeconds);
+        var minutes = parseInt(timer / 60, 10);
+        var seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+        delayMinutes = delayMinutes < 10 ? "0" + delayMinutes : delayMinutes;
+        delaySeconds = delaySeconds < 10 ? "0" + delaySeconds : delaySeconds;
+
+        if (timer <= timerInterval) {
+          document.getElementById("form").style.visibility = "visible";
+          display.textContent = "Tersisa " + minutes + " Menit " + seconds + " detik ";
+        } else {
+          display.textContent = "Soal dibuka " + formattedTime + " lagi";
+        }
+
+        if (--timer < 0) {
+          display.textContent = tolerance + " Menit Toleransi, SILAHKAN TEKAN TOMBOL SUBMIT!";
+        }
+        if (--batas < 0) {
+          document.getElementById("form").style.visibility = "hidden";
+          display.textContent = "TIMES UP! TERIMAKASIH.";
+        }
+
+      }, 1000);
+
+      return timerIntervalId;
+    }
+
+    function formatTime(minutes, seconds) {
+      var days = Math.floor(minutes / (60 * 24));
+      var hours = Math.floor((minutes % (60 * 24)) / 60);
+      var remainingMinutes = minutes % 60;
+      var remainingSeconds = seconds;
+
+      days = days > 0 ? days + " Hari " : "";
+      hours = hours > 0 ? hours + " Jam " : "";
+      remainingMinutes = remainingMinutes > 0 ? remainingMinutes + " Menit " : "";
+      remainingSeconds = remainingSeconds > 0 ? remainingSeconds + " Detik" : "";
+
+      return days + hours + remainingMinutes + remainingSeconds;
+    }
+
+    function addMinutes(date, minutes) {
+      date.setMinutes(date.getMinutes() + minutes);
+      return date;
+    }
+
+    function showPopup(popupTimerValue) {
+      var popup = document.getElementById("popup");
+      popup.style.display = "block";
+
+      var popupDisplay = document.querySelector('#popup-time');
+      var intervalId = setInterval(function () {
+        var minutes = parseInt(popupTimerValue / 60, 10);
+        var seconds = parseInt(popupTimerValue % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        popupDisplay.textContent = minutes + ":" + seconds + " Menit";
+
+        if (--popupTimerValue < 0) {
+          popup.style.display = "none";
+          clearInterval(intervalId);
+        }
+      }, 1000);
+    }
+
+    function handleVisibilityChange() {
+      if (document.visibilityState === "hidden") {
+        // Pengguna pindah ke tab lain atau aplikasi lain
+        showPopup(initialPopupTimer); // Gunakan initialPopupTimer untuk reset
+        resetTimer();
+      } else {
+        // Pengguna kembali ke tab saat ini
+        console.log("Pengguna kembali ke halaman");
+      }
+    }
+
+    function resetTimer() {
+      clearInterval(timerInterval);
+      var timerIntervalValue = 30;
+      var tolerance = 1;
+      var startDate = '2023-11-15T10:00:00.000';
+      var display = document.querySelector('#time');
+      var initDate = new Date(startDate);
+      var countDownDate = addMinutes(initDate, timerIntervalValue);
+      var nowDate = new Date();
+      var duration = (countDownDate.getTime() - nowDate.getTime()) / 1000;
+
+      // Jika waktu sudah habis, langsung sembunyikan form
+      if (duration <= 0) {
+        document.getElementById("form").style.visibility = "hidden";
+        display.textContent = "TIMES UP! TERIMAKASIH.";
+        return;
+      }
+
+      // Jika waktu belum habis, set timer dan tampilkan form
+      timerInterval = startTimer(duration, timerIntervalValue, tolerance, display);
+      document.getElementById("form").style.visibility = "hidden";
+    }
+
+    // Menambahkan variabel initialPopupTimer dan timerInterval secara lokal
+    var initialPopupTimer = 2 * 60;
+    var timerInterval;
+
+    window.onload = function () {
+      resetTimer();
+      document.addEventListener("visibilitychange", handleVisibilityChange, false);
+
+      setInterval(function () {
+        var isActive = document.hasFocus();
+        if (!isActive) {
+          showPopup(initialPopupTimer);
+        }
+      }, 7000);
+    };
+  </script>
+</body>
+
+</html>

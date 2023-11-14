@@ -4,224 +4,283 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script class="jsbin" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <title>CERDIG SCIENCE COMPETITION</title>
-  <style type="text/css" media="screen">
+  <link rel="manifest" href="manifest/manifest.json">
+  <link rel="stylesheet" href="pop-up.css">
+  <script src="pop.js"></script>
+  <!-- Favicon links -->
+  <link rel="icon" type="image/png" sizes="192x192" href="Favicon/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="Favicon/android-chrome-512x512.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="Favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/x-icon" href="Favicon/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="Favicon/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="Favicon/favicon-32x32.png">
+  <style>
     body {
-      overflow: visible;
+      font-family: 'Arial', sans-serif;
       margin: 0;
       padding: 0;
-      font-size: 16px;
+      background-color: #f4f4f4;
     }
 
-    #timer {
-      background-color: #000000;
-      color: #FFFFFF;
-      font-family: arial;
-      font-weight: bold;
-      padding: 10px 30px;
-      margin: 20px;
-      border-radius: 100px;
+    header {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    iframe {
+    header img {
       max-width: 100%;
-      height: 800px;
-      width: 100%;
-      border: 0;
-      padding-top: 8px;
-      margin: 0;
+      height: auto;
+      max-height: 100px;
+      /* Set a maximum height for the logo */
+      margin-right: 20px;
+      /* Add spacing to the right of the logo */
     }
 
-    #form {
-      padding: 10px;
+    header {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 20px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
-    #popup {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.7);
-      /* Semi-transparent background */
-      z-index: 1000;
+    header img {
+      max-width: 100%;
+      height: auto;
+      max-height: 100px;
+      /* Set a maximum height for the logo */
+      margin-bottom: 10px;
+      /* Add spacing below the logo */
     }
 
-    #popup-content {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      padding: 20px;
-      background-color: #fff;
-      border: 1px solid #000;
-      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-      z-index: 1001;
-      /* Ensure the content is above the background */
-    }
-
-    #popup-time {
-      font-size: 18px;
-      font-weight: bold;
-    }
-
-    @media screen and (max-width: 600px) {
-      #timer {
-        padding: 5px 15px;
-        margin: 20px;
+    /* Media query for smaller screens */
+    @media (max-width: 576px) {
+      header {
+        text-align: center;
       }
 
-      body {
-        font-size: 14px;
+      header img {
+        max-height: 100px;
+        /* Adjust the maximum height as needed for smaller screens */
+        max-width: auto;
+        height: auto;
+        margin-bottom: 5px;
+        /* Reduce spacing below the logo for smaller screens */
+      }
+    }
+
+    /* Media query for smaller screens, including iPhone XR */
+    @media only screen and (max-width: 828px) {
+      header img {
+        max-height: 60px;
+        /* Adjust the maximum height as needed for smaller screens */
+        margin-bottom: 5px;
+        padding-bottom: 10px;
+        /* Reduce spacing below the logo for smaller screens */
+      }
+    }
+
+    /* Media query for smaller screens */
+    @media (max-width: 768px) {
+      header {
+        text-align: center;
+
+      }
+
+      header img {
+        max-width: 145px;
+        width: 70%;
+        /* Adjust the width as needed for your design */
+        margin-top: 10px;
+        /* Add spacing to the top if necessary */
+      }
+    }
+
+    h1 {
+      margin-top: -8px;
+      /* Adjust the margin between the logo and the header text */
+    }
+
+    /* Media query for even smaller screens */
+    @media (max-width: 576px) {
+      header img {
+        width: 90%;
+        /* Adjust the width as needed for your design */
+      }
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .card {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin: 20px 0;
+      padding: 20px;
+      text-align: center;
+      width: 100%;
+      box-sizing: border-box;
+      cursor: pointer;
+      text-decoration: none;
+      color: black;
+      transition: box-shadow 0.3s ease-in-out;
+    }
+
+    .card:hover {
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Adjust the margin between paragraphs */
+    .card p {
+      margin: 5px 0;
+      /* You can adjust this value as needed */
+    }
+
+    /* Adjust the margin between h2 and p */
+    .card h2 {
+      margin-bottom: 5px;
+      /* You can adjust this value as needed */
+    }
+
+    @media (min-width: 576px) {
+      .card {
+        width: calc(50% - 20px);
+      }
+    }
+
+    @media (min-width: 768px) {
+      .card {
+        width: calc(50% - 20px);
+      }
+    }
+
+    @media (min-width: 992px) {
+      .card {
+        width: calc(25% - 20px);
+      }
+    }
+
+    @media (min-width: 576px) {
+      .card {
+        width: calc(50% - 20px);
+      }
+    }
+
+    @media (min-width: 768px) {
+      .card {
+        width: calc(50% - 20px);
+      }
+    }
+
+    @media (min-width: 992px) {
+      .card {
+        width: calc(25% - 20px);
       }
     }
   </style>
 </head>
 
 <body>
-  <div id="timer" align="center"><a class="fa fa-clock-o"></a> <span id="time"></span></div>
-  <span id="form">
-    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdSAqAL0i_Tm_FbrZCgpv7TBm9goxNb363ELwg58tIpbjRCIQ/viewform">Mohon Menunggu</iframe><br />
-  </span>
 
-  <div id="popup">
-    <div id="popup-content">
-      <p>Halaman ini dibekukan karena anda terdeteksi melakukan kecurangan.<br>Popup akan muncul selama:</p>
-      <p id="popup-time"></p>
+  <header>
+    <img src="logo.png" alt="Logo">
+    <h1>CERDIG SCIENCE COMPETITION</h1>
+  </header>
+
+  <div class="container">
+    <a href="#popup" class="card" onclick="showPopup()">
+      <!-- <a href="#popup" class="card"> -->
+      <h2>Matematika</h2>
+      <p>PIN : ******</p>
+    </a>
+
+    <a href="fisika.html" class="card">
+      <h2>Fisika</h2>
+      <p>PIN : ******</p>
+    </a>
+
+    <a href="#popup" class="card" onclick="showPopup()">
+      <h2>Kimia</h2>
+      <p>PIN : ******</p>
+    </a>
+
+    <a href="#popup" class="card" onclick="showPopup()">
+      <h2>Biologi</h2>
+      <p>PIN : ******</p>
+    </a>
+
+    <a href="#popup" class="card" onclick="showPopup()">
+      <h2>Astronomi</h2>
+      <p>PIN : ******</p>
+    </a>
+
+    <a href="#popup" class="card" onclick="showPopup()">
+      <h2>Ekonomi</h2>
+      <p>PIN : ******</p>
+    </a>
+
+    <a href="#popup" class="card" onclick="showPopup()">
+      <h2>Geografi</h2>
+      <p>PIN : ******</p>
+    </a>
+
+    <a href="#popup" class="card" onclick="showPopup()">
+      <h2>Kebumian</h2>
+      <p>PIN : ******</p>
+    </a>
+  </div>
+
+  <!--PopUp html-->
+  <div id="popup" class="overlay">
+    <div class="popup">
+      <h2>UPPS!</h2>
+      <a class="close" href="index.html">&times;</a>
+      <div class="content">
+        <p> Mohon maaf, soal ini belum dibuka. hari ini ngerjain soal fisika dulu ya..</p>
+      </div>
     </div>
   </div>
 
   <script>
-    function startTimer(duration, timerInterval, tolerance, display) {
-      var timer = duration;
-      var timerIntervalId;
-      var batas = timer + tolerance * 60;
-      timerInterval = 60 * timerInterval;
-
-      timerIntervalId = setInterval(function () {
-        var delayMinutes = parseInt((timer - timerInterval) / 60, 10);
-        var delaySeconds = parseInt((timer - timerInterval) % 60, 10);
-        var formattedTime = formatTime(delayMinutes, delaySeconds);
-        var minutes = parseInt(timer / 60, 10);
-        var seconds = parseInt(timer % 60, 10);
-
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
-        delayMinutes = delayMinutes < 10 ? "0" + delayMinutes : delayMinutes;
-        delaySeconds = delaySeconds < 10 ? "0" + delaySeconds : delaySeconds;
-
-        if (timer <= timerInterval) {
-          document.getElementById("form").style.visibility = "visible";
-          display.textContent = "Tersisa " + minutes + " Menit " + seconds + " detik ";
-        } else {
-          display.textContent = "Soal dibuka " + formattedTime + " lagi";
-        }
-
-        if (--timer < 0) {
-          display.textContent = tolerance + " Menit Toleransi, SILAHKAN TEKAN TOMBOL SUBMIT!";
-        }
-        if (--batas < 0) {
-          document.getElementById("form").style.visibility = "hidden";
-          display.textContent = "TIMES UP! TERIMAKASIH.";
-        }
-
-      }, 1000);
-
-      return timerIntervalId;
+    // Fungsi untuk menampilkan pop-up
+    function showPopup() {
+      document.getElementById('popup').style.display = 'block';
+      history.replaceState({}, document.title, window.location.pathname + window.location.search);
+      // Reset the scroll position to the top of the page
+      document.documentElement.scrollTop = 0;
     }
 
-    function formatTime(minutes, seconds) {
-      var days = Math.floor(minutes / (60 * 24));
-      var hours = Math.floor((minutes % (60 * 24)) / 60);
-      var remainingMinutes = minutes % 60;
-      var remainingSeconds = seconds;
-
-      days = days > 0 ? days + " Hari " : "";
-      hours = hours > 0 ? hours + " Jam " : "";
-      remainingMinutes = remainingMinutes > 0 ? remainingMinutes + " Menit " : "";
-      remainingSeconds = remainingSeconds > 0 ? remainingSeconds + " Detik" : "";
-
-      return days + hours + remainingMinutes + remainingSeconds;
+    // Fungsi untuk menyembunyikan pop-up
+    function hidePopup() {
+      document.getElementById('popup').style.display = 'none';
+      history.replaceState({}, document.title, window.location.pathname + window.location.search);
+      // Reset the scroll position to the top of the page
+      document.documentElement.scrollTop = 0;
     }
 
-    function addMinutes(date, minutes) {
-      date.setMinutes(date.getMinutes() + minutes);
-      return date;
-    }
-
-    function showPopup(popupTimerValue) {
-      var popup = document.getElementById("popup");
-      popup.style.display = "block";
-
-      var popupDisplay = document.querySelector('#popup-time');
-      var intervalId = setInterval(function () {
-        var minutes = parseInt(popupTimerValue / 60, 10);
-        var seconds = parseInt(popupTimerValue % 60, 10);
-
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
-
-        popupDisplay.textContent = minutes + ":" + seconds + " Menit";
-
-        if (--popupTimerValue < 0) {
-          popup.style.display = "none";
-          clearInterval(intervalId);
-        }
-      }, 1000);
-    }
-
-    function handleVisibilityChange() {
-      if (document.visibilityState === "hidden") {
-        // Pengguna pindah ke tab lain atau aplikasi lain
-        showPopup(initialPopupTimer); // Gunakan initialPopupTimer untuk reset
-        resetTimer();
-      } else {
-        // Pengguna kembali ke tab saat ini
-        console.log("Pengguna kembali ke halaman");
+    // Menambahkan event listener untuk menanggapi klik di luar pop-up dan menutupnya
+    document.addEventListener('click', function (event) {
+      if (event.target.classList.contains('overlay')) {
+        hidePopup();
       }
-    }
-
-    function resetTimer() {
-      clearInterval(timerInterval);
-      var timerIntervalValue = 90;
-      var tolerance = 1;
-      var startDate = '2023-11-14T09:30:00.000';
-      var display = document.querySelector('#time');
-      var initDate = new Date(startDate);
-      var countDownDate = addMinutes(initDate, timerIntervalValue);
-      var nowDate = new Date();
-      var duration = (countDownDate.getTime() - nowDate.getTime()) / 1000;
-
-      // Jika waktu sudah habis, langsung sembunyikan form
-      if (duration <= 0) {
-        document.getElementById("form").style.visibility = "hidden";
-        display.textContent = "TIMES UP! TERIMAKASIH.";
-        return;
-      }
-
-      // Jika waktu belum habis, set timer dan tampilkan form
-      timerInterval = startTimer(duration, timerIntervalValue, tolerance, display);
-      document.getElementById("form").style.visibility = "hidden";
-    }
-
-    // Menambahkan variabel initialPopupTimer dan timerInterval secara lokal
-    var initialPopupTimer = 2 * 60;
-    var timerInterval;
-
-    window.onload = function () {
-      resetTimer();
-      document.addEventListener("visibilitychange", handleVisibilityChange, false);
-
-      setInterval(function () {
-        var isActive = document.hasFocus();
-        if (!isActive) {
-          showPopup(initialPopupTimer);
-        }
-      }, 7000);
-    };
+    });
   </script>
+
 </body>
 
 </html>
