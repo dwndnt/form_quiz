@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--=============== BOXICONS ===============-->
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+
+    <!--=============== CSS ===============-->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <!-- favicon -->
+    <!-- Favicon links -->
+    <link rel="icon" type="image/png" sizes="192x192" href="Favicon/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="Favicon/android-chrome-512x512.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="Favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/x-icon" href="Favicon/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="Favicon/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="Favicon/favicon-32x32.png">
+    <title>404 | CERDIG</title>
+</head>
+
+<body>
+    <!--==================== HEADER ====================-->
+    <header class="header">
+        <nav class="nav container">
+            <a href="#" class="nav__logo">
+                CERDAS DIGITAL INDONESIA
+            </a>
+
+            <!-- <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item">
+                        <a href="#" class="nav__link">Home</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#" class="nav__link">About</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#" class="nav__link">Contact</a>
+                    </li>
+                </ul> -->
+
+                <!-- <div class="nav__close" id="nav-close">
+                    <i class='bx bx-x'></i>
+                </div> -->
+            </div>
+
+            <!-- Toggle button -->
+            <div class="nav__toggle" id="nav-toggle">
+                <i class='bx bx-grid-alt'></i>
+            </div>
+        </nav>
+    </header>
+
+    <!--==================== MAIN ====================-->
+    <main class="main">
+        <!--==================== HOME ====================-->
+        <section class="home">
+            <div class="home__container container">
+                <div class="home__data">
+                    <span class="home__subtitle">UPPSS!!</span>
+                    <h1 class="home__title">Hey Buddy</h1>
+                    <p class="home__description">
+                        Halaman ini belum dibuka <br> Sabar yawhh hehe.<br><br>Dibuka Dalam :<br>
+                        <span id="countdown"></span>
+                    </p>
+                    <a href="https://www.instagram.com/dwndnt/" class="home__button">
+                        Meet our programmer?
+                    </a>
+                </div>
+
+                <div class="home__img">
+                    <img src="assets/img/ghost-img.png" alt="">
+                    <div class="home__shadow"></div>
+                </div>
+            </div>
+
+            <footer class="home__footer">
+                <span>@dwndnt</span>
+                <span>|</span>
+                <span>Tim IT</span>
+            </footer>
+        </section>
+    </main>
+
+    <!--=============== SCROLLREVEAL ===============-->
+    <script src="assets/js/scrollreveal.min.js"></script>
+<script>
+            // Set the date we're counting down to
+            var countDownDate = new Date("Nov 18, 2023 09:00:00").getTime();
+
+// Update the countdown every 1 second
+var x = setInterval(function () {
+    // Get the current date and time
+    var now = new Date().getTime();
+
+    // Calculate the remaining time
+    var distance = countDownDate - now;
+
+    // Calculate days, hours, minutes, and seconds
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // Display the countdown
+    document.getElementById("countdown").innerHTML = days + "hari " + hours + "jam " +
+        minutes + "menit " + seconds + "detik " + "lagi";
+
+    // If the countdown is over, display a message
+    if (distance < 0) {
+        clearInterval(x);
+        document.getElementById("countdown").innerHTML = "EXPIRED";
+    }
+}, 1000);
+</script>
+    <!--=============== MAIN JS ===============-->
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>
