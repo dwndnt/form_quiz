@@ -2,284 +2,64 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CERDIG SCIENCE COMPETITION</title>
-  <link rel="manifest" href="manifest/manifest.json">
-  <link rel="stylesheet" href="pop-up.css">
-  <script src="pop.js"></script>
-  <!-- Favicon links -->
-  <link rel="icon" type="image/png" sizes="192x192" href="Favicon/android-chrome-192x192.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="Favicon/android-chrome-512x512.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="Favicon/apple-touch-icon.png">
-  <link rel="icon" type="image/x-icon" href="Favicon/favicon.ico">
-  <link rel="icon" type="image/png" sizes="16x16" href="Favicon/favicon-16x16.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="Favicon/favicon-32x32.png">
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f4f4f4;
-    }
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	  <!-- Favicon links -->
+	  <link rel="icon" type="image/png" sizes="192x192" href="Favicon/android-chrome-192x192.png">
+	  <link rel="icon" type="image/png" sizes="512x512" href="Favicon/android-chrome-512x512.png">
+	  <link rel="apple-touch-icon" sizes="180x180" href="Favicon/apple-touch-icon.png">
+	  <link rel="icon" type="image/x-icon" href="Favicon/favicon.ico">
+	  <link rel="icon" type="image/png" sizes="16x16" href="Favicon/favicon-16x16.png">
+	  <link rel="icon" type="image/png" sizes="32x32" href="Favicon/favicon-32x32.png">
 
-    header {
-      background-color: #333;
-      color: #fff;
-      text-align: center;
-      padding: 20px 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+	<title>CERDIG SCIENCE COMPETITION</title>
 
-    header img {
-      max-width: 100%;
-      height: auto;
-      max-height: 100px;
-      /* Set a maximum height for the logo */
-      margin-right: 20px;
-      /* Add spacing to the right of the logo */
-    }
+	<!-- Google font -->
+	<link href="https://fonts.googleapis.com/css?family=Oswald:700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato:400" rel="stylesheet">
 
-    header {
-      background-color: #333;
-      color: #fff;
-      text-align: center;
-      padding: 20px 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+	<!-- Font Awesome Icon -->
+	<link type="text/css" rel="stylesheet" href="css/font-awesome.min.css" />
 
-    header img {
-      max-width: 100%;
-      height: auto;
-      max-height: 100px;
-      /* Set a maximum height for the logo */
-      margin-bottom: 10px;
-      /* Add spacing below the logo */
-    }
+	<!-- Custom stlylesheet -->
+	<link type="text/css" rel="stylesheet" href="css/style.css" />
 
-    /* Media query for smaller screens */
-    @media (max-width: 576px) {
-      header {
-        text-align: center;
-      }
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
 
-      header img {
-        max-height: 100px;
-        /* Adjust the maximum height as needed for smaller screens */
-        max-width: auto;
-        height: auto;
-        margin-bottom: 5px;
-        /* Reduce spacing below the logo for smaller screens */
-      }
-    }
-
-    /* Media query for smaller screens, including iPhone XR */
-    @media only screen and (max-width: 828px) {
-      header img {
-        max-height: 60px;
-        /* Adjust the maximum height as needed for smaller screens */
-        margin-bottom: 5px;
-        padding-bottom: 10px;
-        /* Reduce spacing below the logo for smaller screens */
-      }
-    }
-
-    /* Media query for smaller screens */
-    @media (max-width: 768px) {
-      header {
-        text-align: center;
-
-      }
-
-      header img {
-        max-width: 145px;
-        width: 70%;
-        /* Adjust the width as needed for your design */
-        margin-top: 10px;
-        /* Add spacing to the top if necessary */
-      }
-    }
-
-    h1 {
-      margin-top: -8px;
-      /* Adjust the margin between the logo and the header text */
-    }
-
-    /* Media query for even smaller screens */
-    @media (max-width: 576px) {
-      header img {
-        width: 90%;
-        /* Adjust the width as needed for your design */
-      }
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-    }
-
-    .card {
-      background-color: #fff;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      margin: 20px 0;
-      padding: 20px;
-      text-align: center;
-      width: 100%;
-      box-sizing: border-box;
-      cursor: pointer;
-      text-decoration: none;
-      color: black;
-      transition: box-shadow 0.3s ease-in-out;
-    }
-
-    .card:hover {
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    }
-
-    /* Adjust the margin between paragraphs */
-    .card p {
-      margin: 5px 0;
-      /* You can adjust this value as needed */
-    }
-
-    /* Adjust the margin between h2 and p */
-    .card h2 {
-      margin-bottom: 5px;
-      /* You can adjust this value as needed */
-    }
-
-    @media (min-width: 576px) {
-      .card {
-        width: calc(50% - 20px);
-      }
-    }
-
-    @media (min-width: 768px) {
-      .card {
-        width: calc(50% - 20px);
-      }
-    }
-
-    @media (min-width: 992px) {
-      .card {
-        width: calc(25% - 20px);
-      }
-    }
-
-    @media (min-width: 576px) {
-      .card {
-        width: calc(50% - 20px);
-      }
-    }
-
-    @media (min-width: 768px) {
-      .card {
-        width: calc(50% - 20px);
-      }
-    }
-
-    @media (min-width: 992px) {
-      .card {
-        width: calc(25% - 20px);
-      }
-    }
-  </style>
 </head>
 
 <body>
 
-  <header>
-    <img src="logo.png" alt="Logo">
-    <h1>CERDIG SCIENCE COMPETITION</h1>
-  </header>
-
-  <div class="container">
-    <a href="#popup" class="card" onclick="showPopup()">
-      <!-- <a href="#popup" class="card"> -->
-      <h2>Matematika</h2>
-      <p>PIN : ******</p>
-    </a>
-
-    <a href="fisika.html" class="card">
-      <h2>Fisika</h2>
-      <p>PIN : 191200</p>
-    </a>
-
-    <a href="#popup" class="card" onclick="showPopup()">
-      <h2>Kimia</h2>
-      <p>PIN : ******</p>
-    </a>
-
-    <a href="#popup" class="card" onclick="showPopup()">
-      <h2>Biologi</h2>
-      <p>PIN : ******</p>
-    </a>
-
-    <a href="#popup" class="card" onclick="showPopup()">
-      <h2>Astronomi</h2>
-      <p>PIN : ******</p>
-    </a>
-
-    <a href="#popup" class="card" onclick="showPopup()">
-      <h2>Ekonomi</h2>
-      <p>PIN : ******</p>
-    </a>
-
-    <a href="#popup" class="card" onclick="showPopup()">
-      <h2>Geografi</h2>
-      <p>PIN : ******</p>
-    </a>
-
-    <a href="#popup" class="card" onclick="showPopup()">
-      <h2>Kebumian</h2>
-      <p>PIN : ******</p>
-    </a>
-  </div>
-
-  <!--PopUp html-->
-  <div id="popup" class="overlay">
-    <div class="popup">
-      <h2>UPPS!</h2>
-      <a class="close" href="index.html">&times;</a>
-      <div class="content">
-        <p> Mohon maaf, soal ini belum dibuka. hari ini ngerjain soal fisika dulu ya..</p>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // Fungsi untuk menampilkan pop-up
-    function showPopup() {
-      document.getElementById('popup').style.display = 'block';
-      history.replaceState({}, document.title, window.location.pathname + window.location.search);
-      // Reset the scroll position to the top of the page
-      document.documentElement.scrollTop = 0;
-    }
-
-    // Fungsi untuk menyembunyikan pop-up
-    function hidePopup() {
-      document.getElementById('popup').style.display = 'none';
-      history.replaceState({}, document.title, window.location.pathname + window.location.search);
-      // Reset the scroll position to the top of the page
-      document.documentElement.scrollTop = 0;
-    }
-
-    // Menambahkan event listener untuk menanggapi klik di luar pop-up dan menutupnya
-    document.addEventListener('click', function (event) {
-      if (event.target.classList.contains('overlay')) {
-        hidePopup();
-      }
-    });
-  </script>
+	<div id="notfound">
+		<div class="notfound-bg">
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+		<div class="notfound">
+        <!-- Move the img tag here -->
+        <img src="logo.png" alt="Logo" class="notfound-logo">
+			<h2>PERHATIAN!!</h2>
+	        <ul class="notfound-points">
+				<li><span>1.</span> Pastikan akun Google Anda tertaut di smartphone ini. <strong><b>JIKA BELUM</b></strong>, silahkan tautkan akun google anda dengan cara klik tombol <strong><b>"LOGIN GOOGLE"</b></strong> dibawah,</a>lalu kembali ke halaman ini!<br> <strong><b>JIKA SUDAH</b></strong>, klik <strong><b>"LANJUTKAN"</b></strong></li>
+				<li><span>2.</span> Dilarang melakukan perbuatan curang! sistem ini mampu mendeteksi kecurangan. Membuka tab baru atau aplikasi lain saat ujian akan membuat layar smartphone otomatis terkunci</li>
+				<li><span>3.</span> Segala bentuk kecurangan akan dijatuhi hukuman diskualifikasi oleh panitia</li>
+			</ul>
+			<a href="#" class="card" onclick="window.open(`https://accounts.google.com/InteractiveLogin/signinchooser?continue=https%3A%2F%2Fwww.google.com`);">LOGIN GOOGLE</a><a href="pilih_mapel.html">LANJUTKAN</a>
+			<div class="notfound-contact">
+				<p>Tim IT,</p>
+				<p>- Dewan Dinata Tarigan -</p>
+			</div>
+		</div>
+	</div>
 
 </body>
 

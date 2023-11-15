@@ -96,6 +96,11 @@
   </div>
 
   <script>
+    function isPopupActive() {
+      if (document.getElementById("popup").style.display === "block") return true;
+      return false;
+    };
+
     function startTimer(duration, timerInterval, tolerance, display) {
       var timer = duration;
       var timerIntervalId;
@@ -159,6 +164,7 @@
 
       var popupDisplay = document.querySelector('#popup-time');
       var intervalId = setInterval(function () {
+        console.log(intervalId, popupTimerValue)
         var minutes = parseInt(popupTimerValue / 60, 10);
         var seconds = parseInt(popupTimerValue % 60, 10);
 
@@ -172,13 +178,21 @@
           clearInterval(intervalId);
         }
       }, 1000);
+      return intervalId;
     }
+
+    var intervalId = 0;
 
     function handleVisibilityChange() {
       if (document.visibilityState === "hidden") {
         // Pengguna pindah ke tab lain atau aplikasi lain
-        showPopup(initialPopupTimer); // Gunakan initialPopupTimer untuk reset
-        resetTimer();
+        if (intervalId != 0 || isPopupActive()) {
+          console.log('Clearing Timer ID', intervalId)
+          clearInterval(intervalId);
+        }
+        intervalId = showPopup(initialPopupTimer); // Gunakan initialPopupTimer untuk reset
+        console.log('Timer ID is', intervalId)
+        // resetTimer();
       } else {
         // Pengguna kembali ke tab saat ini
         console.log("Pengguna kembali ke halaman");
@@ -187,9 +201,9 @@
 
     function resetTimer() {
       clearInterval(timerInterval);
-      var timerIntervalValue = 30;
+      var timerIntervalValue = 40;
       var tolerance = 1;
-      var startDate = '2023-11-15T10:15:00.000';
+      var startDate = '2023-11-16T09:30:00.000';
       var display = document.querySelector('#time');
       var initDate = new Date(startDate);
       var countDownDate = addMinutes(initDate, timerIntervalValue);
@@ -209,7 +223,7 @@
     }
 
     // Menambahkan variabel initialPopupTimer dan timerInterval secara lokal
-    var initialPopupTimer = 2 * 60;
+    var initialPopupTimer = 5 * 60;
     var timerInterval;
 
     window.onload = function () {
@@ -218,11 +232,22 @@
 
       setInterval(function () {
         var isActive = document.hasFocus();
-        if (!isActive) {
+        if (!isActive && isPopupActive()) {
           showPopup(initialPopupTimer);
         }
       }, 7000);
+
     };
+    window.addEventListener("beforeunload", function (e) {
+      var confirmationMessage = "Apakah Anda yakin ingin meninggalkan halaman?";
+      console.log("Beforeunload event triggered!");
+
+      // Standar For Most Browsers
+      e.returnValue = confirmationMessage;
+
+      // Untuk Chrome
+      return confirmationMessage;
+    });
   </script>
 </body>
 

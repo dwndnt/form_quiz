@@ -55,3 +55,47 @@
     width: 70%;
   }
 }
+
+/* Styles for Rules PopUp */
+#rules-popup {
+  display: none;
+}
+
+.rules-popup {
+  max-width: 400px;
+  margin: 50px auto;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.rules-popup h2 {
+  color: #333;
+}
+
+.rules-popup a.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  text-decoration: none;
+  color: #666;
+}
+
+.rules-popup p {
+  margin: 10px 0;
+  color: #666;
+}
+
+/* Show the pop-up with animation */
+.rules-popup.show {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
