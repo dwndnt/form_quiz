@@ -201,9 +201,15 @@
 
     function resetTimer() {
       clearInterval(timerInterval);
+<<<<<<< HEAD
       var timerIntervalValue = 40;
       var tolerance = 1;
       var startDate = '2023-11-16T09:30:00.000';
+=======
+      var timerIntervalValue = 130;
+      var tolerance = 1;
+      var startDate = '2023-11-15T19:15:00.000';
+>>>>>>> 26e2043d6208baee3488a169540a2f352ba6b637
       var display = document.querySelector('#time');
       var initDate = new Date(startDate);
       var countDownDate = addMinutes(initDate, timerIntervalValue);
