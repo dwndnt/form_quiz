@@ -2,6 +2,29 @@
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
+/* Add new styles for the header */
+header {
+  text-align: center;
+  align-items: center;
+  padding: 20px 0;
+  background-color: #f8f8f8; /* Add a background color for better visibility */
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 10%; /* Adjust the maximum width based on your design */
+  height: auto;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+/* Adjust the style for the header logo */
+.header-logo {
+  max-width: 100%;
+  height: auto;
+}
 
 body {
   padding: 0;
@@ -149,6 +172,7 @@ body {
   font-size: 188px;
   font-weight: 700;
   margin: 0px;
+  margin-top: 10px;
   text-shadow: 4px 4px 0px #00ffc0;
 }
 

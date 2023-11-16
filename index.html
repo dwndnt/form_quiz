@@ -36,8 +36,6 @@
 </head>
 
 <body>
-
-<<<<<<< HEAD
 	<div id="notfound">
 		<div class="notfound-bg">
 			<div></div>
@@ -46,8 +44,6 @@
 			<div></div>
 		</div>
 		<div class="notfound">
-        <!-- Move the img tag here -->
-        <img src="logo.png" alt="Logo" class="notfound-logo">
 			<h2>PERHATIAN!!</h2>
 	        <ul class="notfound-points">
 				<li><span>1.</span> Pastikan akun Google Anda tertaut di smartphone ini. <strong><b>JIKA BELUM</b></strong>, silahkan tautkan akun google anda dengan cara klik tombol <strong><b>"LOGIN GOOGLE"</b></strong> dibawah,</a>lalu kembali ke halaman ini!<br> <strong><b>JIKA SUDAH</b></strong>, klik <strong><b>"LANJUTKAN"</b></strong></li>
@@ -61,97 +57,6 @@
 			</div>
 		</div>
 	</div>
-=======
-  <header>
-    <img src="logo.png" alt="Logo">
-    <h1>CERDIG SCIENCE COMPETITION</h1>
-  </header>
-
-  <div class="container">
-    <a href="#popup" class="card" onclick="showPopup()">
-      <!-- <a href="#popup" class="card"> -->
-      <h2>Matematika</h2>
-      <p>PIN : ******</p>
-    </a>
-
-    <a href="fisika.html" class="card">
-      <h2>Fisika</h2>
-      <p>PIN : 191200</p>
-    </a>
-
-    <a href="#popup" class="card" onclick="showPopup()">
-      <h2>Kimia</h2>
-      <p>PIN : ******</p>
-    </a>
-
-    <a href="#popup" class="card" onclick="showPopup()">
-      <h2>Biologi</h2>
-      <p>PIN : ******</p>
-    </a>
-
-    <a href="#popup" class="card" onclick="showPopup()">
-      <h2>Astronomi</h2>
-      <p>PIN : ******</p>
-    </a>
-
-    <a href="#popup" class="card" onclick="showPopup()">
-      <h2>Ekonomi</h2>
-      <p>PIN : ******</p>
-    </a>
-
-    <a href="#popup" class="card" onclick="showPopup()">
-      <h2>Geografi</h2>
-      <p>PIN : ******</p>
-    </a>
-
-    <a href="#popup" class="card" onclick="showPopup()">
-      <h2>Kebumian</h2>
-      <p>PIN : ******</p>
-    </a>
-
-    
-    <a href="#" class="card" onclick="window.open(`https://accounts.google.com/InteractiveLogin/signinchooser?continue=https%3A%2F%2Fwww.google.com`);">
-      <h2>Login</h2>
-      <p>Silahkan login terlebih dahulu</p>
-    </a>
-  </div>
-
-  <!--PopUp html-->
-  <div id="popup" class="overlay">
-    <div class="popup">
-      <h2>UPPS!</h2>
-      <a class="close" href="index.html">&times;</a>
-      <div class="content">
-        <p> Mohon maaf, soal ini belum dibuka. hari ini ngerjain soal fisika dulu ya..</p>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // Fungsi untuk menampilkan pop-up
-    function showPopup() {
-      document.getElementById('popup').style.display = 'block';
-      history.replaceState({}, document.title, window.location.pathname + window.location.search);
-      // Reset the scroll position to the top of the page
-      document.documentElement.scrollTop = 0;
-    }
-
-    // Fungsi untuk menyembunyikan pop-up
-    function hidePopup() {
-      document.getElementById('popup').style.display = 'none';
-      history.replaceState({}, document.title, window.location.pathname + window.location.search);
-      // Reset the scroll position to the top of the page
-      document.documentElement.scrollTop = 0;
-    }
-
-    // Menambahkan event listener untuk menanggapi klik di luar pop-up dan menutupnya
-    document.addEventListener('click', function (event) {
-      if (event.target.classList.contains('overlay')) {
-        hidePopup();
-      }
-    });
-  </script>
->>>>>>> 26e2043d6208baee3488a169540a2f352ba6b637
 
 </body>
 
