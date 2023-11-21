@@ -6,7 +6,7 @@ Untuk menguatkan keamanan, saya juga menambahkan fitur kunci pop-up yang akan ak
 
 
 
-| Main-page | Rules                        |
+| Main-page Rules                        |
 |------------------------------------|
 | ![Gambar Utama](main-index.png) |
 
