@@ -2,62 +2,147 @@
 <html lang="en">
 
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-	  <!-- Favicon links -->
-	  <link rel="icon" type="image/png" sizes="192x192" href="Favicon/android-chrome-192x192.png">
-	  <link rel="icon" type="image/png" sizes="512x512" href="Favicon/android-chrome-512x512.png">
-	  <link rel="apple-touch-icon" sizes="180x180" href="Favicon/apple-touch-icon.png">
-	  <link rel="icon" type="image/x-icon" href="Favicon/favicon.ico">
-	  <link rel="icon" type="image/png" sizes="16x16" href="Favicon/favicon-16x16.png">
-	  <link rel="icon" type="image/png" sizes="32x32" href="Favicon/favicon-32x32.png">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Favicon links -->
+	<link rel="icon" type="image/png" sizes="192x192" href="Favicon/android-chrome-192x192.png">
+	<link rel="icon" type="image/png" sizes="512x512" href="Favicon/android-chrome-512x512.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="Favicon/apple-touch-icon.png">
+	<link rel="icon" type="image/x-icon" href="Favicon/favicon.ico">
+	<link rel="icon" type="image/png" sizes="16x16" href="Favicon/favicon-16x16.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="Favicon/favicon-32x32.png">
+	<link rel="manifest" href="manifest/manifest.json">
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			background-color: #f2f2f2;
+		}
 
+		header {
+			background-color: #333;
+			color: white;
+			padding: 10px;
+			text-align: center;
+		}
+
+		header img {
+			max-width: 100%;
+			max-height: 60px;
+			display: inline-block;
+			vertical-align: middle;
+		}
+
+		header h1 {
+			display: inline-block;
+			vertical-align: middle;
+			margin: 0;
+		}
+
+		main {
+			padding: 20px;
+		}
+
+		.info {
+			background-color: #fff;
+			border-radius: 10px;
+			padding: 20px;
+			margin-bottom: 20px;
+			text-align: justify;
+
+		}
+
+		.buttons {
+			display: flex;
+			justify-content: space-between;
+			margin-bottom: 10px;
+		}
+
+		.buttons button {
+			background-color: #4CAF50;
+			color: white;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
+
+		.buttons button:hover {
+			background-color: #45a049;
+		}
+
+		.developers {
+			margin-top: 10px;
+		}
+
+		footer {
+			background-color: #333;
+			color: white;
+			text-align: center;
+			padding: 10px;
+			position: fixed;
+			bottom: 0;
+			width: 100%;
+		}
+	</style>
 	<title>CERDIG SCIENCE COMPETITION</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Set the target date and time (18/11/2023 at 09.00 WIB)
+            var targetDate = new Date("November 18, 2023 09:43:00 GMT+0700");
 
-	<!-- Google font -->
-	<link href="https://fonts.googleapis.com/css?family=Oswald:700" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Lato:400" rel="stylesheet">
+            // Get the "Lanjutkan" button element
+            var lanjutkanButton = document.getElementById("lanjutkanButton");
 
-	<!-- Font Awesome Icon -->
-	<link type="text/css" rel="stylesheet" href="css/font-awesome.min.css" />
-
-	<!-- Custom stlylesheet -->
-	<link type="text/css" rel="stylesheet" href="css/style.css" />
-
-	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-	<!--[if lt IE 9]>
-		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-		<![endif]-->
-
+            // Enable the button if the current date and time are greater than or equal to the target date and time
+            if (new Date() >= targetDate) {
+                lanjutkanButton.removeAttribute("disabled");
+            }
+        });
+    </script>
 </head>
 
 <body>
-	<div id="notfound">
-		<div class="notfound-bg">
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-		</div>
-		<div class="notfound">
-			<h2>PERHATIAN!!</h2>
-	        <ul class="notfound-points">
-				<li><span>1.</span> Pastikan akun Google Anda tertaut di smartphone ini. <strong><b>JIKA BELUM</b></strong>, silahkan tautkan akun google anda dengan cara klik tombol <strong><b>"LOGIN GOOGLE"</b></strong> dibawah,</a>lalu kembali ke halaman ini!<br> <strong><b>JIKA SUDAH</b></strong>, klik <strong><b>"LANJUTKAN"</b></strong></li>
-				<li><span>2.</span> Dilarang melakukan perbuatan curang! sistem ini mampu mendeteksi kecurangan. Membuka tab baru atau aplikasi lain saat ujian akan membuat layar smartphone otomatis terkunci</li>
-				<li><span>3.</span> Segala bentuk kecurangan akan dijatuhi hukuman diskualifikasi oleh panitia</li>
-			</ul>
-			<a href="#" class="card" onclick="window.open(`https://accounts.google.com/InteractiveLogin/signinchooser?continue=https%3A%2F%2Fwww.google.com`);">LOGIN GOOGLE</a><a href="pilih_mapel.html">LANJUTKAN</a>
-			<div class="notfound-contact">
-				<p>Tim IT,</p>
-				<p>- Dewan Dinata Tarigan -</p>
-			</div>
-		</div>
-	</div>
+	<header>
+		<img src="logo.png" alt="Logo">
+		<h1>CERDIG SCIENCE COMPETITION</h1>
+	</header>
 
+	<main>
+		<div class="info">
+			<p>1. Pastikan akun Google Anda tertaut di smartphone ini. <strong><b>JIKA BELUM</b></strong>, silahkan
+				tautkan akun google anda dengan cara klik tombol <strong><b>"LOGIN GOOGLE"</b></strong> dibawah,</a>lalu
+				kembali ke halaman ini!<br> <strong><b>JIKA SUDAH</b></strong>, klik <strong><b>"LANJUTKAN"</b></strong>
+			</p>
+			<p>2. Pastikan tampilan smartphone/iPhone dalam mode terang. Sistem dan Form tidak mendukung tampilan mode
+				gelap</p>
+			<p>3. Pastikan koneksi internet berjalan dengan baik. Anda hanya punya waktu 90 menit untuk ujian dan tidak
+				ada penambahan untuk koneksi internet buruk</p>
+			<p>4. Dilarang melakukan perbuatan curang! Sistem ini mampu mendeteksi kecurangan. Membuka tab baru atau
+				aplikasi lain saat ujian akan membuat layar smartphone otomatis terkunci</p>
+			<p>5. Segala bentuk kecurangan akan dijatuhi hukuman diskualifikasi oleh panitia</p>
+		</div>
+
+		<div class="buttons">
+			<a href="https://accounts.google.com/InteractiveLogin/signinchooser?continue=https%3A%2F%2Fwww.google.com" target="_blank">
+				<button>Login Google</button>
+			</a>
+			<a href="pilih_mapel.html">
+				<button id="lanjutkanButton" disabled>Lanjutkan</button>
+			</a>
+		</div>
+
+		<div class="developers">
+			<p>Developed by Tim IT Cerdig.id</p>
+		</div>
+	</main>
+
+	<footer>
+		<p>Cerdas Digital ID &copy; 2023</p>
+	</footer>
 </body>
 
 </html>

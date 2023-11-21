@@ -96,6 +96,9 @@
   </div>
 
   <script>
+    var intervalpopupblockID = [];
+    var isPopupActiveLocal = false;
+
     function isPopupActive() {
       if (document.getElementById("popup").style.display === "block") return true;
       return false;
@@ -159,6 +162,7 @@
     }
 
     function showPopup(popupTimerValue) {
+      console.log('called')
       var popup = document.getElementById("popup");
       popup.style.display = "block";
 
@@ -176,34 +180,43 @@
         if (--popupTimerValue < 0) {
           popup.style.display = "none";
           clearInterval(intervalId);
+          // Set status popup aktif ke localStorage
+          localStorage.setItem("isPopupActive", false);
         }
       }, 1000);
       return intervalId;
     }
-
     var intervalId = 0;
+
+    isRefresh = false;
+    window.onbeforeunload = function () {
+      isRefresh = true;
+    }
+
 
     function handleVisibilityChange() {
       if (document.visibilityState === "hidden") {
-        // Pengguna pindah ke tab lain atau aplikasi lain
-        if (intervalId != 0 || isPopupActive()) {
-          console.log('Clearing Timer ID', intervalId)
-          clearInterval(intervalId);
+        if (isRefresh) return;
+        if (intervalpopupblockID.length != 0 || isPopupActive()) {
+          for (var z of intervalpopupblockID) {
+            clearInterval(z);
+          }
         }
-        intervalId = showPopup(initialPopupTimer); // Gunakan initialPopupTimer untuk reset
-        console.log('Timer ID is', intervalId)
-        // resetTimer();
+        localStorage.setItem("isPopupActive", true);
+        intervalId = showPopup(initialPopupTimer);
+        intervalpopupblockID.push(intervalId);
       } else {
         // Pengguna kembali ke tab saat ini
         console.log("Pengguna kembali ke halaman");
       }
     }
 
+
     function resetTimer() {
       clearInterval(timerInterval);
-      var timerIntervalValue = 40;
+      var timerIntervalValue = 90;
       var tolerance = 1;
-      var startDate = '2023-11-16T09:30:00.000';
+      var startDate = '2023-11-18T09:43:00.000';
       var display = document.querySelector('#time');
       var initDate = new Date(startDate);
       var countDownDate = addMinutes(initDate, timerIntervalValue);
@@ -227,27 +240,25 @@
     var timerInterval;
 
     window.onload = function () {
-      resetTimer();
+      // Cek status popup di localStorage saat halaman dimuat
+      isPopupActiveLocal = localStorage.getItem("isPopupActive") === "true";
+
+      // Jika popup sedang aktif, tampilkan
+      if (isPopupActiveLocal) {
+        showPopup(initialPopupTimer);
+      }
+
+      resetTimer(); // supaya sisa waktu ujian tetap ditampilkan
+
       document.addEventListener("visibilitychange", handleVisibilityChange, false);
 
-      setInterval(function () {
-        var isActive = document.hasFocus();
-        if (!isActive && isPopupActive()) {
-          showPopup(initialPopupTimer);
-        }
-      }, 7000);
-
+      // setInterval(function () {
+      //   var isActive = document.hasFocus();
+      //   if (!isActive && isPopupActive()) {
+      //     showPopup(initialPopupTimer);
+      //   }
+      // }, 7000);
     };
-    window.addEventListener("beforeunload", function (e) {
-      var confirmationMessage = "Apakah Anda yakin ingin meninggalkan halaman?";
-      console.log("Beforeunload event triggered!");
-
-      // Standar For Most Browsers
-      e.returnValue = confirmationMessage;
-
-      // Untuk Chrome
-      return confirmationMessage;
-    });
   </script>
 </body>
 
